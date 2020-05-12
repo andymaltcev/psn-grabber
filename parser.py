@@ -27,10 +27,12 @@ def gathering_games_info(url, headers, page):
     for game in games_titles:
         print('NEW GAME')
         print(game)
-        game_name = game.find('div', {'class': 'grid-cell__title'}).find('span').text
-        game_price = (game.find('h3', {'class':
+        try:
+            game_name = game.find('div', {'class': 'grid-cell__title'}).find('span').text
+            game_price = (game.find('h3', {'class':
                                            game.find('h3').get('class')}).text).split('\xa0')
-        games_info.append({game_name: game_price})
+            games_info.append({game_name: game_price})
+        except: TypeError
     return games_info
 
 pages = int(count_pages(url, headers))
