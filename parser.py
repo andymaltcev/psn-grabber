@@ -1,13 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 import lxml
-import time
+import datetime
 
 url = 'https://store.playstation.com/ru-ru/grid/STORE-MSF75508-PS4CAT/'
 headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'
       }
-def count_pages(url, headers):
+def get_pages_count(url, headers):
     store_page = requests.get(url,  headers = headers)
     soup = BeautifulSoup(store_page.text, 'lxml')
     pages_info = soup.find('div', {'class': 'grid-footer-controls'})\
@@ -15,26 +15,25 @@ def count_pages(url, headers):
         .get('href').split('/')
     pages_qty = int(pages_info[-1])
     return pages_qty
-def gathering_games_info(url, headers, page):
+def get_game_data(url, headers, page):
     games_info = []
     current_url = url + str(page+1)
     store_page = requests.get(current_url, headers=headers)
     soup = BeautifulSoup(store_page.text, 'lxml')
-    #print(soup)
-    #print(store_page)
     games_titles = soup.find_all('div', {'class': 'grid-cell__body'})
-    #print(games_titles)
     for game in games_titles:
-        print('NEW GAME')
-        print(game)
         try:
-            game_name = game.find('div', {'class': 'grid-cell__title'}).find('span').text
+            game_title = game.find('div', {'class': 'grid-cell__title'}).find('span').text
             game_price = (game.find('h3', {'class':
                                            game.find('h3').get('class')}).text).split('\xa0')
-            games_info.append({game_name: game_price})
+            actual_date = str(datetime.datetime.now().date())
+            games_info.append({'game_title': game_title,
+                               'game_price': game_price[1],
+                               'price_value': game_price[0],
+                               'actual_date': actual_date})
         except: TypeError
     return games_info
 
-pages = int(count_pages(url, headers))
+pages = int(get_pages_count(url, headers))
 for page in range(pages):
-    print(gathering_games_info(url, headers, page))
+    print(get_game_data(url, headers, page))
