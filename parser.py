@@ -67,10 +67,10 @@ cur = con.cursor()
 
 for page in range(pages):
     page_info = get_game_data(url, headers, page)
-    for i in range(len(page_info)):
+    for item in page_info:
         cur.execute(
             "INSERT INTO PSN_GAMES (GAME_ID, GAME_TITLE, PRICE, VALUE, REQ_DATE) VALUES (%s, %s, %s, %s, %s)",
-            (page_info[i]['game_id'], page_info[i]['game_title'], page_info[i]['game_price'], page_info[i]['price_value'], page_info[i]['actual_date']
+            (item['game_id'], item['game_title'], item['game_price'], item['price_value'], item['actual_date']
         ))
         con.commit()
 
