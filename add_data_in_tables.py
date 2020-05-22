@@ -35,7 +35,7 @@ for page in range(pages):
                     "INSERT INTO psn_games_prices (game_id, price, value, req_date) VALUES (%s, %s, %s, %s)",
                     (game_id, item['game_price'], item['price_value'], item['req_date']))
                 con.commit()
-                cur.execute("SELECT req_date FROM public.psn_games_prices WHERE game_id = %s;", (game_id))
+                cur.execute("SELECT req_date FROM public.psn_games_prices WHERE game_id = %s ORDER BY req_date DESC LIMIT 1;", (game_id))
                 date_found = cur.fetchone()
             if current_date != date_found[0]:
                 cur.execute(
@@ -47,7 +47,7 @@ for page in range(pages):
         else:
             cur.execute("SELECT id FROM public.psn_games_description WHERE game_title = %s;", (game_name,))
             game_id = cur.fetchone()
-            cur.execute("SELECT req_date FROM public.psn_games_prices WHERE game_id = %s;", (game_id))
+            cur.execute("SELECT req_date FROM public.psn_games_prices WHERE game_id = %s ORDER BY req_date DESC LIMIT 1;", (game_id))
             date_found = cur.fetchone()
             if current_date != date_found[0]:
                 cur.execute(
