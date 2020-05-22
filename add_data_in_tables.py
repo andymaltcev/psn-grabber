@@ -7,6 +7,7 @@ headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'
       }
 current_date = (datetime.datetime.now().date())
+
 con = psycopg2.connect(
         database="Psn_game_base",
         user="postgres",
@@ -36,7 +37,7 @@ for page in range(pages):
                 con.commit()
                 cur.execute("SELECT req_date FROM public.psn_games_prices WHERE game_id = %s;", (game_id))
                 date_found = cur.fetchone()
-            if current_date != date_found:
+            if current_date != date_found[0]:
                 cur.execute(
                     "INSERT INTO psn_games_prices (game_id, price, value, req_date) VALUES (%s, %s, %s, %s)",
                     (game_id, item['game_price'], item['price_value'], item['req_date']))
@@ -48,7 +49,7 @@ for page in range(pages):
             game_id = cur.fetchone()
             cur.execute("SELECT req_date FROM public.psn_games_prices WHERE game_id = %s;", (game_id))
             date_found = cur.fetchone()
-            if current_date != date_found:
+            if current_date != date_found[0]:
                 cur.execute(
                     "INSERT INTO psn_games_prices (game_id, price, value, req_date) VALUES (%s, %s, %s, %s)",
                     (game_id, item['game_price'], item['price_value'], item['req_date']))
@@ -56,5 +57,5 @@ for page in range(pages):
             else:
                 continue
 con.close()
-print('Data successfully added')
+print('Data successfully updated')
 
