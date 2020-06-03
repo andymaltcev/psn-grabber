@@ -27,7 +27,7 @@ def get_game_data(url, headers, page):
             req_date = str(datetime.datetime.now().date())
 
             games_info.append({'game_url': game_url,
-                                'game_title': game_title,
+                               'game_title': game_title,
                                'game_price': int(game_price[1].replace('.','')),
                                'game_description': game_description,
                                'game_platform': game_platform,
