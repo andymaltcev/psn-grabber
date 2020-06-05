@@ -13,7 +13,8 @@ cur.execute('''CREATE TABLE psn_games_description
      game_url TEXT NOT NULL,
      game_title TEXT NOT NULL,
      game_description TEXT NOT NULL,
-     platform TEXT NOT NULL);''')
+     platform TEXT NOT NULL
+     title_lowreg TEXT NOT NULL);''')
 cur.execute('''CREATE TABLE psn_games_prices
      (id SERIAL PRIMARY KEY NOT NULL,
      game_id INT NOT NULL,

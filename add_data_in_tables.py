@@ -24,8 +24,8 @@ for page in range(pages):
         cur.execute("SELECT id FROM public.psn_games_description WHERE game_title = %s;", (game_name,))
         if cur.fetchone() is None:
             cur.execute(
-                "INSERT INTO psn_games_description (game_url, game_title, game_description, platform) VALUES (%s, %s, %s, %s)",
-                (item['game_url'], item['game_title'], item['game_description'], item['game_platform']))
+                "INSERT INTO psn_games_description (game_url, game_title, game_description, platform, title_lowreg) VALUES (%s, %s, %s, %s, %s)",
+                (item['game_url'], item['game_title'], item['game_description'], item['game_platform'], item['title_lowreg']))
             cur.execute("SELECT id FROM public.psn_games_description WHERE game_title = %s;", (game_name,))
             game_id = cur.fetchone()
             cur.execute("SELECT req_date FROM public.psn_games_prices WHERE game_id = %s;", (game_id))
