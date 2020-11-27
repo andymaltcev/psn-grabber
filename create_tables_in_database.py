@@ -1,12 +1,12 @@
 import psycopg2
 
 con = psycopg2.connect(
-        database="Psn_game_base",
-        user="postgres",
-        password="va041062",
-        host="127.0.0.1",
-        port="5432"
-    )
+    database="Your_base_name",
+    user="postgres",
+    password="Your_password",
+    host="127.0.0.1",
+    port="5432"
+)
 cur = con.cursor()
 cur.execute('''CREATE TABLE psn_games_description
      (id SERIAL PRIMARY KEY NOT NULL,

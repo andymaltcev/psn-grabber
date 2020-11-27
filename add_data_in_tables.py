@@ -1,6 +1,7 @@
-import psycopg2
-import ps_store_parser as psp
 import datetime
+
+import ps_store_parser as psp
+import psycopg2
 
 url = 'https://store.playstation.com/ru-ru/grid/STORE-MSF75508-PS4CAT/'
 headers = {
