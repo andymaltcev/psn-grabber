@@ -1,21 +1,30 @@
-#psn-grabber
+# Psn-grabber
 The application is a scheduled (cron) job that grabs the PSN website pages,
 searches for products and their prices and stores them into the database.
 As a result, a historical data about product prices is available in the database
 for further analysis and visualization.
 
+## Install
+
 Clone this repo by command:
 
-$ git clone <url>
+```bash
+git clone <url>
+```
 
 At first you should install Python packages from requirements.txt.
 To do this, run the following command in the command line:
 
-$ pip install -r requirements.txt
+```bash
+pip install -r requirements.txt
+```
+## Usage
 
 All files run on local machine by command like:
 
-$ python <file name>
+```bash
+python <file name>
+```
 
 1. create_tables_in_database.py - creates a database and the necessary
 tables for subsequent filling. This file runs once.
@@ -34,6 +43,7 @@ as a module into the files described in points 2 and 3.
 5. data_output.py - this file gives a simple output of the price
 change graph from the database for the specified product.
 
+# P.S.
 Unfortunately, the parser described in the file "ps_store_parser.py"
 no longer works. Cuz Sony changed the HTML markup on their website.
 
